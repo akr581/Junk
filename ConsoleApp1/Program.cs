@@ -29,7 +29,7 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
 
-            decimal curNom = 10;
+            decimal curNom = 12;
 
             decimal.TryParse("ad", out decimal curVal);
 
