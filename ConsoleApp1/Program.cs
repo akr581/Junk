@@ -39,6 +39,8 @@ namespace ConsoleApp1
 
             DateTime dddd;
 
+            Console.WriteLine("Hello World");
+
             DateTime.TryParse("2022-01-01", out dddd);
 
             int result = DateTime.Today >= new DateTime(2022, 09, 29) ? 45 : 25;
