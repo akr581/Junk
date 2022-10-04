@@ -44,6 +44,7 @@ namespace ConsoleApp1
             int result = DateTime.Today >= new DateTime(2022, 09, 29) ? 45 : 25;
 
 
+
             List<string> sdasda = null;// = new List<string>();// { "abc", "abc" };
 
             if (sdasda.Any(x => x.Equals("abc")))
