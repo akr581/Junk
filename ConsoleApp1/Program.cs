@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -13,11 +14,44 @@ using System.Xml.Serialization;
 namespace ConsoleApp1
 {
 
+    static class Helper
+    {
+        public static bool IsGuidIsNullOrEmpty(this string value)
+        {
+            return true;
+        }
+
+        public static string ReverseWord(this string value)
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = value.Length - 1; i >= 0; i--) sb.Append(value[i]);
+            return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(sb.ToString().ToLower());
+        }
+    }
 
     class Program
     {
 
+        public class TempForTest
+        {
+            public enum Something
+            {
+                A,
+                B
+            }
 
+            public TempForTest(Something par)
+            {
+                Console.WriteLine($"parametr: {par.ToString()}");
+            }
+        }
+
+        public class TempForTest2
+        {
+            public int Age { get; set; }
+            public string Name { get; set; }
+            public DateTime Date { get; set; }
+        }
 
         public enum Test
         {
@@ -26,14 +60,103 @@ namespace ConsoleApp1
             C
         }
 
+        public class TempForTest2Comparer : IEqualityComparer
+        {
+            public new bool Equals(object x, object y)
+            {
+                throw new NotImplementedException();
+            }
+
+            public int GetHashCode(object obj)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         static void Main(string[] args)
         {
+
+            int ab = 12;
+            for (int i = 1; i <= 26; i++)
+            {
+                int rees = i % 12 != 0 ? (i / 12 + 1) : i / 12;
+                Console.WriteLine($"{i}:{rees}");
+            }
+
+
+            List<TempForTest2> tempForTest2List = new List<TempForTest2>();
+            tempForTest2List.Add(new TempForTest2()
+            {
+                Name = "A",
+                Age = 15,
+                Date = new DateTime(2022, 10, 5)
+            });
+
+            tempForTest2List.Add(new TempForTest2()
+            {
+                Name = "B",
+                Age = 16,
+                Date = new DateTime(2022, 10, 28)
+            });
+
+            tempForTest2List.Add(new TempForTest2()
+            {
+                Name = "C",
+                Age = 17,
+                Date = new DateTime(2022, 11, 28)
+            });
+
+            var resultssss = tempForTest2List.OrderBy(x => x.Date).GroupBy(x => new { x.Date.Year, x.Date.Month }).Select(x => x.LastOrDefault());
+
+            foreach (var item in resultssss)
+            {
+                Console.WriteLine($"{item.Name} {item.Age} {item.Date.Date}");
+            }
+
+            Console.ReadKey();
+            return;
+
+            List<TempForTest2> tempList2 = new List<TempForTest2>();
+
+            tempList2.Add(new TempForTest2() { Name = "A", Age = 30 });
+            tempList2.Add(new TempForTest2() { Name = "A", Age = 30 });
+
+            IEqualityComparer<TempForTest2> comparer;
+
+            //tempList2 = tempList2.Distinct().ToList(comparer);
+
+
+            string[] arrrrrrray = { "", "" };
+            DateTime dt1 = new DateTime(2020, 01, 31);
+            DateTime dt2 = new DateTime(2022, 07, 14);
+
+            var ressssssss = ((dt2.Year - dt1.Year) * 12) + dt2.Month - dt1.Month;
+
+            string word = "Cat";
+            Console.WriteLine($"Word is {word}, reversed word is {word.ReverseWord()}");
+            Console.ReadLine();
+            return;
+
+            int? somethingg = null;
+            somethingg = 5;
+
+            if (somethingg != null) Console.WriteLine(somethingg);
+
+            string asfafas = null;
+            asfafas.IsGuidIsNullOrEmpty();
+
+            asfafas = "asd";
+            asfafas.IsGuidIsNullOrEmpty();
+
+            TempForTest tt4Test = new TempForTest(TempForTest.Something.A);
+
+            Console.ReadLine();
 
             decimal curNom = 14;
 
             decimal.TryParse("ad", out decimal curVal);
 
-            Console.WriteLine(curVal/curNom);
+            Console.WriteLine($@"abc\cde {curNom}");
 
             Console.ReadLine();
 
