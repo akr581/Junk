@@ -13,6 +13,17 @@ using System.Xml.Serialization;
 
 namespace ConsoleApp1
 {
+    public static class ListExtensions
+    {
+        public static List<List<T>> ChunkBy<T>(this List<T> source, int chunkSize)
+        {
+            return source
+                .Select((x, i) => new { Index = i, Value = x })
+                .GroupBy(x => x.Index / chunkSize)
+                .Select(x => x.Select(v => v.Value).ToList())
+                .ToList();
+        }
+    }
 
     static class Helper
     {
@@ -27,6 +38,8 @@ namespace ConsoleApp1
             for (int i = value.Length - 1; i >= 0; i--) sb.Append(value[i]);
             return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(sb.ToString().ToLower());
         }
+
+        
     }
 
     class Program
@@ -73,8 +86,72 @@ namespace ConsoleApp1
             }
         }
 
+        
+
         static void Main(string[] args)
         {
+
+            DateTime ddddtttt = new DateTime(2022, 01, 01);
+
+            Console.WriteLine(ddddtttt.ToString("yyyy-mm-dd"));    
+            List<string> lllist = new List<string>() {
+                "a"
+                ,"b"
+                ,"b"
+                ,"b"
+                ,"b"
+                ,"b"
+                ,"b"
+                ,"b"
+                ,"b"
+                ,"b"
+                ,"b"
+            };
+
+            var newList = lllist.ChunkBy(3);
+
+            Console.WriteLine(Math.Ceiling(101236M/10000));
+
+
+            List<string> l1 = new List<string>() { "A", "B", "C" };
+            List<string> l2 = new List<string>() { "B" };
+
+            l1 = l1.Except(l2).ToList();
+
+            Console.ReadKey();
+            return;
+
+            DateTime? dt5 = new DateTime(2022, 03, 10);
+            DateTime dt6 = new DateTime(2022, 03, 11);
+
+            Console.WriteLine(dt6 > (dt5 ?? DateTime.MinValue));
+            Console.ReadKey();
+            return;
+
+
+            int inttt;
+            int.TryParse("2,13", out inttt);
+
+            Test dsd = Test.A;
+
+            Console.WriteLine("dsd " + ((int)dsd).ToString());
+
+            DateTime dttt;
+            DateTime.TryParse("2022-09-20T07:51:15.55Z", out dttt);
+            Console.WriteLine(dttt.ToString("yyyy-MM-ddThh-mm-ss"));
+            Console.WriteLine(DateTime.SpecifyKind(dttt, DateTimeKind.Utc).ToUniversalTime());
+
+            Console.WriteLine("--------------------");
+            Console.WriteLine(dttt);
+            Console.WriteLine("--------------------");
+            dttt = dttt.AddTicks(-(dttt.Ticks % TimeSpan.TicksPerSecond));
+            Console.WriteLine(dttt);
+
+            Console.ReadKey();
+
+            return;
+            Console.WriteLine(DateTime.MinValue.ToUniversalTime());
+            Console.WriteLine($"Привет![PS] Пишу, чтобы[PS] протестить функционал[PS]".Replace("[PS]", "---"));
 
             int ab = 12;
             for (int i = 1; i <= 26; i++)
